@@ -140,9 +140,6 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
   }
 
   Future<void> _showPDF() async {
-    setState(() {
-      _isPDFShown = true; // Set the flag to true when showing the PDF
-    });
 
     Navigator.of(context).push(PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) {
@@ -167,9 +164,6 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
       },
     ));
 
-    setState(() {
-      _isPDFShown = true;
-    });
   }
 //the is an issue here
   // void _showPDFDirectly() {
