@@ -145,7 +145,7 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
       ),
     );
   }
-
+//this button doesnt work
   // void _showPDFDirectly() {
   //   if (_pdfUrl.isNotEmpty) {
   //     Navigator.of(context).push(
