@@ -93,7 +93,6 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
                     )),
                     child: PDFView(
                       filePath: _localFilePath!,
-                      // You can add more configuration options for the PDFView widget as needed
                     ),
                   ),
                 ),
@@ -149,7 +148,7 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
       pageBuilder: (context, animation, secondaryAnimation) {
         return SlideTransition(
           position: Tween<Offset>(
-            begin: Offset(0, 1), // Start from the bottom
+            begin: Offset(0, 1),
             end: Offset.zero,
           ).animate(animation),
           child: Scaffold(
@@ -159,8 +158,7 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
             ),
             body: PDFView(
               filePath: _localFilePath!,
-              // You can add more configuration options for the PDFView widget as needed
-            ),
+                  ),
           ),
         );
       },
@@ -170,7 +168,7 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
     ));
 
     setState(() {
-      _isPDFShown = false; // Set the flag to false when showing the PDF is completed
+      _isPDFShown = true;
     });
   }
 //the is an issue here

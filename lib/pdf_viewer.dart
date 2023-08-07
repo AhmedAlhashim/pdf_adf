@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+
 // This method DOES NOT WORK FAST so I disabled it
 
 class PDFViewer extends StatelessWidget {
@@ -14,10 +15,9 @@ class PDFViewer extends StatelessWidget {
         title: Text('PDF Viewer'),
         backgroundColor: Color(0xFFCB9316),
       ),
-      body: Center(  // Wrap PDFView with Center widget
+      body: Center(
         child: PDFView(
           filePath: pdfUrl,
-          // You can add more configuration options for the PDFView widget as needed
         ),
       ),
     );
