@@ -83,17 +83,8 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
                 ),
               if (_localFilePath != null && _isPDFShown)
                 Expanded(
-                  child: SlideTransition(
-                    position: Tween<Offset>(
-                      begin: Offset(0, 1),
-                      end: Offset.zero,
-                    ).animate(CurvedAnimation(
-                      parent: ModalRoute.of(context)!.animation!,
-                      curve: Curves.easeOut,
-                    )),
-                    child: PDFView(
-                      filePath: _localFilePath!,
-                    ),
+                  child: PDFView(
+                    filePath: _localFilePath!,
                   ),
                 ),
             ],
@@ -140,32 +131,21 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
   }
 
   Future<void> _showPDF() async {
-
-    Navigator.of(context).push(PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) {
-        return SlideTransition(
-          position: Tween<Offset>(
-            begin: Offset(0, 1),
-            end: Offset.zero,
-          ).animate(animation),
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text('PDF Viewer'),
-              backgroundColor: Color(0xFFCB9316),
-            ),
-            body: PDFView(
-              filePath: _localFilePath!,
-                  ),
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => Scaffold(
+          appBar: AppBar(
+            title: Text('PDF Viewer'),
+            backgroundColor: Color(0xFFCB9316),
           ),
-        );
-      },
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return child;
-      },
-    ));
-
+          body: PDFView(
+            filePath: _localFilePath!,
+          ),
+        ),
+      ),
+    );
   }
-//the is an issue here
+
   // void _showPDFDirectly() {
   //   if (_pdfUrl.isNotEmpty) {
   //     Navigator.of(context).push(
