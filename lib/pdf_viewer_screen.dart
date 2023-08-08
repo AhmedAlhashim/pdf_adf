@@ -68,11 +68,11 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
                     ),
                     SizedBox(width: 16),
                     //the button doesnt work
-                    // PDFActionButton(
-                    //   onPressed: _pdfUrl.isNotEmpty ? _showPDFDirectly : null,
-                    //   icon: Icons.open_in_new,
-                    //   label: 'Show PDF Directly',
-                    // ),
+                    PDFActionButton(
+                      onPressed: _pdfUrl.isNotEmpty ? _showPDFDirectly : null,
+                      icon: Icons.open_in_new,
+                      label: 'Show PDF Directly',
+                    ),
                   ],
                 ),
               ),
@@ -145,19 +145,19 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
       ),
     );
   }
-//this button doesnt work
-  // void _showPDFDirectly() {
-  //   if (_pdfUrl.isNotEmpty) {
-  //     Navigator.of(context).push(
-  //       MaterialPageRoute(
-  //         builder: (context) => PDFViewer(pdfUrl: _pdfUrl),
-  //       ),
-  //     );
-  //   } else {
-  //     // Show an error message indicating the URL is empty
-  //     _showErrorMessage('URL is empty');
-  //   }
-  // }
+// this button doesnt work
+  void _showPDFDirectly() {
+    if (_pdfUrl.isNotEmpty) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => PDFViewer(pdfUrl: _pdfUrl),
+        ),
+      );
+    } else {
+      // Show an error message indicating the URL is empty
+      _showErrorMessage('URL is empty');
+    }
+  }
 
   void _showErrorMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(

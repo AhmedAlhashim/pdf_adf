@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
-// This method DOES NOT WORK FAST so I disabled it
 
 class PDFViewer extends StatelessWidget {
   final String pdfUrl;
