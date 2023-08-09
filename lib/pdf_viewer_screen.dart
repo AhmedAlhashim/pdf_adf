@@ -50,7 +50,9 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
                   },
                   decoration: InputDecoration(
                     hintText: 'Enter PDF URL',
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
                     filled: true,
                     fillColor: Colors.white,
                     prefixIcon: Icon(Icons.link),
@@ -63,16 +65,10 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
                   children: [
                     PDFActionButton(
                       onPressed: _isDownloading ? null : _onActionButtonPressed,
-                      icon: _isPDFShown ? Icons.open_in_browser : Icons.download,
-                      label: _isPDFShown ? 'Show PDF' : 'Download & Show PDF',
+                      icon: Icons.download,
+                      label: 'Download & Show PDF',
                     ),
                     SizedBox(width: 16),
-                    //the button doesnt work
-                    PDFActionButton(
-                      onPressed: _pdfUrl.isNotEmpty ? _showPDFDirectly : null,
-                      icon: Icons.open_in_new,
-                      label: 'Show PDF Directly',
-                    ),
                   ],
                 ),
               ),
@@ -83,8 +79,17 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
                 ),
               if (_localFilePath != null && _isPDFShown)
                 Expanded(
-                  child: PDFView(
-                    filePath: _localFilePath!,
+                  child: SlideTransition(
+                    position: Tween<Offset>(
+                      begin: Offset(0, 1),
+                      end: Offset.zero,
+                    ).animate(CurvedAnimation(
+                      parent: ModalRoute.of(context)!.animation!,
+                      curve: Curves.easeOut,
+                    )),
+                    child: PDFView(
+                      filePath: _localFilePath!,
+                    ),
                   ),
                 ),
             ],
@@ -119,7 +124,7 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
         });
       } catch (e) {
         setState(() {
-          _isDownloading = false;
+          _isDownloading = true;
         });
         // Handle the error
         _showErrorMessage('Failed to download PDF');
@@ -131,32 +136,32 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
   }
 
   Future<void> _showPDF() async {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => Scaffold(
-          appBar: AppBar(
-            title: Text('PDF Viewer'),
-            backgroundColor: Color(0xFFCB9316),
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: Offset(0, 1),
+            end: Offset.zero,
+          ).animate(animation),
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text('PDF Viewer'),
+              backgroundColor: Color(0xFFCB9316),
+            ),
+            body: PDFView(
+              filePath: _localFilePath!,
+            ),
           ),
-          body: PDFView(
-            filePath: _localFilePath!,
-          ),
-        ),
-      ),
-    );
-  }
-// this button doesnt work
-  void _showPDFDirectly() {
-    if (_pdfUrl.isNotEmpty) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => PDFViewer(pdfUrl: _pdfUrl),
-        ),
-      );
-    } else {
-      // Show an error message indicating the URL is empty
-      _showErrorMessage('URL is empty');
-    }
+        );
+      },
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return child;
+      },
+    ));
+    setState(() {
+      _isPDFShown =
+          false; // Set the flag to false when showing the PDF is completed
+    });
   }
 
   void _showErrorMessage(String message) {

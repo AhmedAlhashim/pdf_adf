@@ -18,7 +18,7 @@ class PDFActionButton extends StatelessWidget {
       icon: Icon(icon),
       label: Text(label),
       style: ElevatedButton.styleFrom(
-        primary: Color(0xFFCB9316),
+        backgroundColor: Color(0xFFCB9316),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
